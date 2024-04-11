@@ -42,4 +42,8 @@ quiz_id
 master_code
 player_code
 
-**Participant**
+**Player**
+id
+name
+email
+phone?
