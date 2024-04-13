@@ -17,7 +17,7 @@ class Game extends Model
         'ended_at',
     ];
 
-    protected function casts()
+    protected function casts(): array
     {
         return [
             'ended_at' => 'timestamp',

@@ -50,6 +50,8 @@ class Quiz extends Resource
 
             Textarea::make('Description'),
 
+            HasMany::make('Games'),
+
             HasMany::make('Questions'),
         ];
     }
@@ -91,6 +93,8 @@ class Quiz extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new Actions\CreateNewGameFromQuiz,
+        ];
     }
 }
