@@ -30,7 +30,7 @@ class CreateNewGameFromQuiz extends Action
     {
         foreach ($quizzes as $quiz) {
             $quiz->games()->create([
-                'joining_code' => Str::random(6),
+                'joining_code' => Str::password(6, false, true, false, false), // 6-letter code
             ]);
         }
     }

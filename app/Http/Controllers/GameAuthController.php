@@ -9,9 +9,17 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
+use Inertia\Response as InertiaResponse;
 
 class GameAuthController extends Controller
 {
+    public function show(Request $request, Game $game): InertiaResponse
+    {
+        return inertia('Game/Auth', [
+            'game' => $game,
+        ]);
+    }
+
     public function start(Request $request, Game $game): Response
     {
         $input = $request->validate([
