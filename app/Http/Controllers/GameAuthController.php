@@ -51,7 +51,7 @@ class GameAuthController extends Controller
             ]);
         }
 
-        // $code->delete();
+        $code->delete();
 
         auth()->login($user, true);
 
