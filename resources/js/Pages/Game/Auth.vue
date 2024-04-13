@@ -48,7 +48,7 @@ const completeAuth = () => {
 <template>
     <Head title="Enter the arena" />
 
-    <div class="py-8 px-8">
+    <div class="py-8 px-8 max-w-xl mx-auto">
         <ApplicationLogo class="mx-auto mb-16"></ApplicationLogo>
 
         <form class="space-y-4" @submit.prevent="auth">
