@@ -18,7 +18,7 @@ const form = useAPIForm({
 </script>
 
 <template>
-    <article class="prose mb-16">
+    <article class="prose mb-16 whitespace-pre-wrap">
         {{ game.current_question.body }}
     </article>
 

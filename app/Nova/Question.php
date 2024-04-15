@@ -3,10 +3,11 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Question extends Resource
@@ -46,11 +47,13 @@ class Question extends Resource
         return [
             ID::make()->sortable(),
 
+            BelongsTo::make('Quiz'),
+
             Number::make('Order'),
 
-            Markdown::make('Body')->alwaysShow(),
+            Textarea::make('Body')->alwaysShow(),
 
-            Text::make('Answer'),
+            Text::make('Answers'),
         ];
     }
 
