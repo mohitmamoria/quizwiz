@@ -1,5 +1,18 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+
+const props = defineProps({
+    game: {
+        type: Object,
+        required: true,
+    },
+    user: {
+        type: Object,
+        required: true,
+    }
+})
+
+const timeSpentForHumans = computed
 </script>
 
 <template>
@@ -13,7 +26,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     src="/images/icons/icon-health.svg"
                     alt="Health"
                 />
-                <h4 class="text-[#058F66] font-extrabold">100</h4>
+                <h4 class="text-[#058F66] font-extrabold">{{ user.gamestate.health }}</h4>
             </div>
 
             <div class="flex items-end">
@@ -22,7 +35,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     src="/images/icons/icon-timer.svg"
                     alt="Timer"
                 />
-                <h4 class="text-[#477ED2] font-extrabold">00:00</h4>
+                <h4 class="text-[#477ED2] font-extrabold">{{ user.gamestate.time_spent }}</h4>
             </div>
 
             <div class="flex items-end">
@@ -31,7 +44,7 @@ import ApplicationLogo from "@/Components/ApplicationLogo.vue";
                     src="/images/icons/icon-leaderboard.svg"
                     alt="Leaderboard"
                 />
-                <h4 class="text-[#9B2BB7] font-extrabold">#1</h4>
+                <h4 class="text-[#9B2BB7] font-extrabold">{{ user.gamestate.rank ? '#' + user.gamestate.rank : 'TBD' }}</h4>
             </div>
         </div>
     </div>

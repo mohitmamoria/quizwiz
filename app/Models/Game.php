@@ -30,9 +30,9 @@ class Game extends Model
         return $this->belongsTo(Quiz::class);
     }
 
-    public function players(): BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Player::class)
+        return $this->belongsToMany(User::class)
             ->withTimestamps()
             ->withPivot('health', 'time_spent', 'rank')->as('gamestate')
             ->orderByPivot('rank', 'asc');
