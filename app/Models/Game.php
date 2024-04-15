@@ -37,4 +37,9 @@ class Game extends Model
             ->withPivot('health', 'time_spent', 'rank')->as('gamestate')
             ->orderByPivot('rank', 'asc');
     }
+
+    public function currentQuestion(): BelongsTo
+    {
+        return $this->belongsTo(Question::class);
+    }
 }

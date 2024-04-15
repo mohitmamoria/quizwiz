@@ -43,6 +43,8 @@ class GameController extends Controller
     {
         $user = $game->users()->where('user_id', $request->user()->id)->latest()->first();
 
+        $game->load('currentQuestion');
+
         return inertia('Game/Play', [
             'game' => $game,
             'user' => $user,

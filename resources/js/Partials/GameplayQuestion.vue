@@ -9,7 +9,7 @@ const props = defineProps({
     user: {
         type: Object,
         required: true,
-    }
+    },
 });
 
 const form = useAPIForm({
@@ -19,12 +19,7 @@ const form = useAPIForm({
 
 <template>
     <article class="prose mb-16">
-        <p>An amazing question loads here.</p>
-        <p>
-            Can be multiple lines, with a lot of hints to make it deducable,
-            only if thought carefully.
-        </p>
-        <p>Would you solve it?</p>
+        {{ game.current_question.body }}
     </article>
 
     <form class="space-y-2" action="">

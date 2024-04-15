@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Question;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +14,7 @@ return new class extends Migration
     {
         Schema::table('games', function (Blueprint $table) {
             $table->timestamp('started_at')->nullable()->after('joining_code');
-            $table->timestamp('current_question_id')->nullable()->after('ended_at');
+            $table->foreignIdFor(Question::class, 'current_question_id')->nullable()->after('ended_at');
         });
     }
 

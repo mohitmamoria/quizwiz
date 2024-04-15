@@ -1,5 +1,6 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import { computed } from "vue";
 
 const props = defineProps({
     game: {
@@ -9,10 +10,14 @@ const props = defineProps({
     user: {
         type: Object,
         required: true,
-    }
-})
+    },
+});
 
-const timeSpentForHumans = computed
+const timeSpentForHumans = computed(() => {
+    return new Date(props.user.gamestate.time_spent * 1000)
+        .toISOString()
+        .slice(14, 19);
+});
 </script>
 
 <template>
@@ -26,7 +31,9 @@ const timeSpentForHumans = computed
                     src="/images/icons/icon-health.svg"
                     alt="Health"
                 />
-                <h4 class="text-[#058F66] font-extrabold">{{ user.gamestate.health }}</h4>
+                <h4 class="text-[#058F66] font-extrabold">
+                    {{ user.gamestate.health }}
+                </h4>
             </div>
 
             <div class="flex items-end">
@@ -35,7 +42,9 @@ const timeSpentForHumans = computed
                     src="/images/icons/icon-timer.svg"
                     alt="Timer"
                 />
-                <h4 class="text-[#477ED2] font-extrabold">{{ user.gamestate.time_spent }}</h4>
+                <h4 class="text-[#477ED2] font-extrabold">
+                    {{ timeSpentForHumans }}
+                </h4>
             </div>
 
             <div class="flex items-end">
@@ -44,7 +53,11 @@ const timeSpentForHumans = computed
                     src="/images/icons/icon-leaderboard.svg"
                     alt="Leaderboard"
                 />
-                <h4 class="text-[#9B2BB7] font-extrabold">{{ user.gamestate.rank ? '#' + user.gamestate.rank : 'TBD' }}</h4>
+                <h4 class="text-[#9B2BB7] font-extrabold">
+                    {{
+                        user.gamestate.rank ? "#" + user.gamestate.rank : "TBD"
+                    }}
+                </h4>
             </div>
         </div>
     </div>

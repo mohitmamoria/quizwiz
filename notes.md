@@ -53,8 +53,10 @@ phone?
 A [[Game]] will have a current state. That current state will be loaded on the player's screen.
 
 1. not_started (managed by started_at)
-2. (current question)
-3. ended (managed by ended_at)
+2. (previous answer's evaluation if any) + (current question)
+3. answers submitted + evaluation awaited
+4. last question's evaluation
+5. ended (managed by ended_at)
 
 Each player's progress in a game will be tracked in game_player table. It will refresh before every question.
 
@@ -73,3 +75,8 @@ answer
 evaluation (correct/incorrect)
 health_spent
 time_spent
+
+# todos
+
+[ ] method to start a quiz and set the current quiz question
+[ ] automatically redirect to play screen after successful auth

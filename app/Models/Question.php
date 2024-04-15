@@ -14,11 +14,20 @@ class Question extends Model
     protected $fillable = [
         'quiz_id',
         'body',
-        'answer',
+        'answers',
+    ];
+
+    protected $hidden = [
+        'answers',
     ];
 
     public function quiz(): BelongsTo
     {
         return $this->belongsTo(Quiz::class);
+    }
+
+    public function next(): ?Question
+    {
+        return $this->quiz->questions()->where('order', '>', $this->order)->first();
     }
 }
