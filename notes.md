@@ -47,3 +47,29 @@ id
 name
 email
 phone?
+
+## How to play in real-time?
+
+A [[Game]] will have a current state. That current state will be loaded on the player's screen.
+
+1. not_started (managed by started_at)
+2. (current question)
+3. ended (managed by ended_at)
+
+Each player's progress in a game will be tracked in game_player table. It will refresh before every question.
+
+game_id
+player_id
+health
+rank
+time_spent
+
+Each players' answers will be tracked in player_question table.
+
+game_id
+question_id
+player_id
+answer
+evaluation (correct/incorrect)
+health_spent
+time_spent

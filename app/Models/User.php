@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,5 +50,13 @@ class User extends Authenticatable
     public function magicCodes(): HasMany
     {
         return $this->hasMany(MagicCode::class);
+    }
+
+    public function games(): BelongsToMany
+    {
+        return $this->belongsToMany(Game::class)
+            ->withTimestamps()
+            ->withPivot('health', 'time_spent', 'rank')->as('gamestate')
+            ->orderByPivot('created_at', 'desc');
     }
 }

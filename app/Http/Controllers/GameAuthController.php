@@ -33,8 +33,6 @@ class GameAuthController extends Controller
             'name' => $input['name'],
         ]);
 
-        //todo: attach the user to the game
-
         Mail::to($user)->send(new MagicCode($user->magicCodes()->create()));
 
         return response()->noContent();
@@ -60,6 +58,8 @@ class GameAuthController extends Controller
         }
 
         $code->delete();
+
+        $user->games()->attach($game);
 
         auth()->login($user, true);
 
