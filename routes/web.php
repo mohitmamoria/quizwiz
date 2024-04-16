@@ -18,7 +18,12 @@ Route::put('/g/{game}/auth', [GameAuthController::class, 'complete'])->name('gam
 Route::post('/g/verify-code', [GameController::class, 'verifyCode'])->name('game.verify-code');
 Route::get('/g/{game}/joining-info', [GameController::class, 'joiningInfo'])->name('game.joining-ingo');
 Route::get('/g/{game:joining_code}/join', [GameController::class, 'join'])->name('game.join');
-Route::get('/g/{game}/play', [GameController::class, 'play'])->name('game.play')->middleware('auth');
+
+// Play
+Route::middleware(['auth'])->group(function () {
+    Route::get('/g/{game}/play', [GameController::class, 'play'])->name('game.play');
+    Route::post('/g/{game}/answers', [GameController::class, 'submitAnswerToCurrentQuestion'])->name('game.submit-answer');
+});
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');

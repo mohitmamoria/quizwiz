@@ -59,4 +59,9 @@ class User extends Authenticatable
             ->withPivot('health', 'time_spent', 'rank')->as('gamestate')
             ->orderByPivot('created_at', 'desc');
     }
+
+    public function attempts(): HasMany
+    {
+        return $this->hasMany(Attempt::class);
+    }
 }

@@ -14,6 +14,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    attempt: {
+        type: Object,
+        default: null,
+    },
 });
 </script>
 
@@ -35,6 +39,11 @@ const props = defineProps({
             :user="user"
         ></GameplayAfterEnd>
 
-        <GameplayQuestion v-else :game="game" :user="user"></GameplayQuestion>
+        <GameplayQuestion
+            v-else
+            :game="game"
+            :user="user"
+            :attempt="attempt"
+        ></GameplayQuestion>
     </div>
 </template>
