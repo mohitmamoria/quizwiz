@@ -50,7 +50,7 @@ class GameController extends Controller
 
         $wasPreviousAttemptCorrect = false;
         if ($previousQuestion = $game->currentQuestion->previous()) {
-            $wasPreviousAttemptCorrect = $user->attempts()->forGame($game)->forQuestion($previousQuestion)->first()->is_correct;
+            $wasPreviousAttemptCorrect = $user->attempts()->forGame($game)->forQuestion($previousQuestion)->first()?->is_correct;
         }
 
         return inertia('Game/Play', [

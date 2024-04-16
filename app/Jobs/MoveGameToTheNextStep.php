@@ -22,6 +22,8 @@ class MoveGameToTheNextStep
      */
     public function handle(): void
     {
+        RefreshLeaderboard::dispatchSync($this->game);
+
         $nextQuestion = $this->game->currentQuestion->next();
 
         if ($nextQuestion) {
