@@ -23,6 +23,14 @@ class Attempt extends Model
         'time_spent',
     ];
 
+    public function casts(): array
+    {
+        return [
+            'is_correct' => 'boolean',
+            'evaluated_at' => 'datetime',
+        ];
+    }
+
     public function game(): BelongsTo
     {
         return $this->belongsTo(Game::class);

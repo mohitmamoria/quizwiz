@@ -15,12 +15,15 @@ class Game extends Model
     protected $fillable = [
         'quiz_id',
         'joining_code',
+        'current_question_id',
+        'started_at',
         'ended_at',
     ];
 
     protected function casts(): array
     {
         return [
+            'started_at' => 'timestamp',
             'ended_at' => 'timestamp',
         ];
     }

@@ -43,8 +43,11 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="prose text-center" v-if="attempt && !attempt.evaluated_at">
-        <p>Answer submitted. Evaluation awaited.</p>
+    <div
+        class="prose text-center"
+        v-if="attempt && attempt.question_id === game.current_question.id"
+    >
+        <p>Answer submitted. Please wait for the next question.</p>
     </div>
     <div v-else>
         <article class="prose mb-16 whitespace-pre-wrap">
