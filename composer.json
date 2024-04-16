@@ -12,6 +12,7 @@
         "inertiajs/inertia-laravel": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/nova": "^4.0",
+        "laravel/reverb": "@beta",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "openai-php/client": "^0.8.5",

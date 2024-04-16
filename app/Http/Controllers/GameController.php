@@ -47,11 +47,15 @@ class GameController extends Controller
 
         $game->load('currentQuestion');
 
-        $attempt = $user->attempts()->forGame($game)->forQuestion($game->currentQuestion)->first();
-
+        $attempt = null;
         $wasPreviousAttemptCorrect = false;
-        if ($previousQuestion = $game->currentQuestion->previous()) {
-            $wasPreviousAttemptCorrect = $user->attempts()->forGame($game)->forQuestion($previousQuestion)->first()?->is_correct;
+
+        if ($game->started_at) {
+            $attempt = $user->attempts()->forGame($game)->forQuestion($game->currentQuestion)->first();
+
+            if ($previousQuestion = $game->currentQuestion->previous()) {
+                $wasPreviousAttemptCorrect = $user->attempts()->forGame($game)->forQuestion($previousQuestion)->first()?->is_correct;
+            }
         }
 
         if ($game->ended_at) {

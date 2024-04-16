@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\GameMadeProgress;
 use App\Models\Game;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -42,6 +43,8 @@ class RefreshLeaderboard implements ShouldQueue
                     $this->storeInLeaderboard($links);
                 });
         });
+
+        GameMadeProgress::dispatch($this->game);
     }
 
     protected function storeInLeaderboard(Collection $users)

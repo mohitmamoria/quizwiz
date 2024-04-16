@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', function () {
+    auth()->logout();
+
     return inertia('Home');
 })->name('home');
 

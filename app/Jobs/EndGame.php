@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\GameMadeProgress;
 use App\Models\Game;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -28,5 +29,7 @@ class EndGame
         $this->game->update([
             'ended_at' => now(),
         ]);
+
+        GameMadeProgress::dispatch($this->game);
     }
 }

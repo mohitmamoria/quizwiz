@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\GameMadeProgress;
 use App\Models\Game;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -34,5 +35,7 @@ class MoveGameToTheNextStep
         } else {
             EndGame::dispatchSync($this->game);
         }
+
+        GameMadeProgress::dispatch($this->game);
     }
 }

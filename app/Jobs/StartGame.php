@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\GameMadeProgress;
 use App\Models\Game;
 use Illuminate\Foundation\Bus\Dispatchable;
 
@@ -27,5 +28,7 @@ class StartGame
             'current_question_id' => $this->game->quiz->questions()->first()->id,
             'ended_at' => null,
         ]);
+
+        GameMadeProgress::dispatch($this->game);
     }
 }
