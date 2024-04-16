@@ -4,8 +4,10 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -54,6 +56,14 @@ class Game extends Resource
             DateTime::make('Ended At'),
 
             BelongsTo::make('Current Question', 'currentQuestion', Question::class),
+
+            BelongsToMany::make('Users')->fields(function ($request, $relatedModel) {
+                return [
+                    Number::make('Health'),
+                    Number::make('Time Spent'),
+                    Number::make('Rank')->sortable(),
+                ];
+            }),
         ];
     }
 

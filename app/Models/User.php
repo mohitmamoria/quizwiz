@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attempt::class);
     }
+
+    // public function totalHealth(): HasMany
+    // {
+    //     return $this->hasMany(Attempt::class);
+    // }
 }
