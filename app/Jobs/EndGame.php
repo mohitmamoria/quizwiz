@@ -22,6 +22,9 @@ class EndGame
      */
     public function handle(): void
     {
+        FillSkippedAttempts::dispatchSync($this->game);
+        RefreshLeaderboard::dispatchSync($this->game);
+
         $this->game->update([
             'ended_at' => now(),
         ]);

@@ -22,6 +22,7 @@ class MoveGameToTheNextStep
      */
     public function handle(): void
     {
+        FillSkippedAttempts::dispatchSync($this->game);
         RefreshLeaderboard::dispatchSync($this->game);
 
         $nextQuestion = $this->game->currentQuestion->next();
