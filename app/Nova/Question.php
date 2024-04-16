@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
@@ -34,7 +35,7 @@ class Question extends Resource
     public static $search = [
         'id',
         'body',
-        'answer',
+        'answers',
     ];
 
     /**
@@ -51,9 +52,11 @@ class Question extends Resource
 
             Number::make('Order'),
 
+            Text::make('Body')->onlyOnIndex(),
+
             Textarea::make('Body')->alwaysShow(),
 
-            Text::make('Answers'),
+            Code::make('Answers')->json(),
         ];
     }
 
