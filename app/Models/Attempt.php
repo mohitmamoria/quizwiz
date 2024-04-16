@@ -12,6 +12,12 @@ class Attempt extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const HEALTH_SPENT_ON_ATTEMPTING = 5;
+
+    const HEALTH_GAINED_ON_BEING_CORRECT = -3;
+
+    const HEALTH_SPENT_ON_SKIPPING = 10;
+
     protected $fillable = [
         'game_id',
         'question_id',

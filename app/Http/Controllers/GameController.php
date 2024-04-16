@@ -81,7 +81,7 @@ class GameController extends Controller
             [
                 'answer' => $input['answer'],
                 'is_correct' => false,
-                'health_spent' => 5,
+                'health_spent' => Attempt::HEALTH_SPENT_ON_ATTEMPTING,
                 'time_spent' => $input['time_spent'],
             ],
         );

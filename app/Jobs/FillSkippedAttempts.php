@@ -42,8 +42,8 @@ class FillSkippedAttempts implements ShouldQueue
                     'answer' => '--skipped--',
                     'evaluated_at' => now(),
                     'is_correct' => false,
-                    'health_spent' => 10,
-                    'time_spent' => 60,
+                    'health_spent' => Attempt::HEALTH_SPENT_ON_SKIPPING,
+                    'time_spent' => 90,
                 ],
             );
         }
