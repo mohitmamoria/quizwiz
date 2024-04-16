@@ -55,7 +55,7 @@ class Game extends Resource
 
             DateTime::make('Ended At'),
 
-            BelongsTo::make('Current Question', 'currentQuestion', Question::class),
+            BelongsTo::make('Current Question', 'currentQuestion', Question::class)->nullable(),
 
             BelongsToMany::make('Users')->fields(function ($request, $relatedModel) {
                 return [

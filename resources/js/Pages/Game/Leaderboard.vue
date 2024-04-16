@@ -24,9 +24,18 @@ onMounted(() => {
 <template>
     <Head title="Leaderboard" />
 
-    <div class="py-8 px-8 max-w-xl mx-auto">
-        <ApplicationLogo class="mx-auto mb-4"></ApplicationLogo>
+    <div class="py-8 px-8 max-w-5xl mx-auto">
+        <ApplicationLogo class="mx-auto mb-16"></ApplicationLogo>
 
-        <Leaderboard :game="game"></Leaderboard>
+        <div class="flex items-start">
+            <div class="w-8/12">
+                <h1 class="font-bold mb-16">Current Question</h1>
+                <article class="prose-2xl mb-16 whitespace-pre-wrap">
+                    {{ game.current_question.body }}
+                </article>
+            </div>
+
+            <Leaderboard :game="game"></Leaderboard>
+        </div>
     </div>
 </template>

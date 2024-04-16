@@ -13,6 +13,3 @@ Broadcast::channel('App.Models.Game.{gameId}', function (User $user, int $gameId
     // Otherwise, if participating in the game, return true
     return Game::find($gameId)->users()->exists($user);
 });
-Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});

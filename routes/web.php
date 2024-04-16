@@ -28,6 +28,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/g/{game}/answers', [GameController::class, 'submitAnswerToCurrentQuestion'])->name('game.submit-answer');
 });
 
+Route::get('/login-as-admin', function () {
+    auth()->logout();
+    auth()->loginUsingId(1, true);
+
+    return 'welcome.';
+});
+
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

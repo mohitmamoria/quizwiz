@@ -97,7 +97,7 @@ class GameController extends Controller
 
     public function leaderboard(Request $request, Game $game)
     {
-        $game->load('users');
+        $game->load('users', 'currentQuestion');
 
         return inertia('Game/Leaderboard', [
             'game' => $game,
