@@ -16,6 +16,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    wasPreviousAttemptCorrect: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const getCurrentTimestamp = () => Math.floor(new Date().getTime() / 1000);

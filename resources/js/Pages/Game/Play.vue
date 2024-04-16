@@ -18,6 +18,10 @@ const props = defineProps({
         type: Object,
         default: null,
     },
+    wasPreviousAttemptCorrect: {
+        type: Boolean,
+        default: false,
+    },
 });
 </script>
 
@@ -44,6 +48,7 @@ const props = defineProps({
             :game="game"
             :user="user"
             :attempt="attempt"
+            :wasPreviousAttemptCorrect="wasPreviousAttemptCorrect"
         ></GameplayQuestion>
     </div>
 </template>

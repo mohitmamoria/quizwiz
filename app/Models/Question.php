@@ -33,6 +33,12 @@ class Question extends Model
         return $this->belongsTo(Quiz::class);
     }
 
+    public function previous(): ?Question
+    {
+        return $this->quiz->questions()->reorder()->orderBy('order', 'desc')
+            ->where('order', '<', $this->order)->first();
+    }
+
     public function next(): ?Question
     {
         return $this->quiz->questions()->where('order', '>', $this->order)->first();
