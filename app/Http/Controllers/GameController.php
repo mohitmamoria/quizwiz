@@ -53,6 +53,10 @@ class GameController extends Controller
             $wasPreviousAttemptCorrect = $user->attempts()->forGame($game)->forQuestion($previousQuestion)->first()?->is_correct;
         }
 
+        if ($game->ended_at) {
+            $game->load('users');
+        }
+
         return inertia('Game/Play', [
             'game' => $game,
             'user' => $user,

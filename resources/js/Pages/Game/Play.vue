@@ -1,8 +1,9 @@
 <script setup>
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import GameplayAfterEnd from "@/Partials/GameplayAfterEnd.vue";
 import GameplayBeforeStart from "@/Partials/GameplayBeforeStart.vue";
-import GameplayHeader from "@/Partials/GameplayHeader.vue";
 import GameplayQuestion from "@/Partials/GameplayQuestion.vue";
+import GameplayUserGamestate from "@/Partials/GameplayUserGamestate.vue";
 import { Head } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -29,7 +30,13 @@ const props = defineProps({
     <Head title="Enter the arena" />
 
     <div class="py-8 px-8 max-w-xl mx-auto">
-        <GameplayHeader :game="game" :user="user"></GameplayHeader>
+        <ApplicationLogo class="mx-auto mb-4"></ApplicationLogo>
+
+        <GameplayUserGamestate
+            class="mb-16"
+            :game="game"
+            :user="user"
+        ></GameplayUserGamestate>
 
         <GameplayBeforeStart
             v-if="game.started_at === null"

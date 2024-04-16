@@ -1,4 +1,6 @@
 <script setup>
+import Leaderboard from "@/Partials/Leaderboard.vue";
+
 const props = defineProps({
     game: {
         type: Object,
@@ -7,7 +9,7 @@ const props = defineProps({
     user: {
         type: Object,
         required: true,
-    }
+    },
 });
 </script>
 
@@ -15,4 +17,6 @@ const props = defineProps({
     <article class="prose mb-16 text-center">
         <p>Thank you for playing today.</p>
     </article>
+
+    <Leaderboard :game="game"></Leaderboard>
 </template>
