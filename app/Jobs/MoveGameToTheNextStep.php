@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Models\Game;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class MoveGameToNextQuestion
+class MoveGameToTheNextStep
 {
     use Dispatchable;
 
@@ -29,10 +29,7 @@ class MoveGameToNextQuestion
                 'current_question_id' => $nextQuestion->id,
             ]);
         } else {
-            $this->game->update([
-                'current_question_id' => null,
-                'ended_at' => now(),
-            ]);
+            EndGame::dispatchSync($this->game);
         }
     }
 }

@@ -23,8 +23,8 @@ class Game extends Model
     protected function casts(): array
     {
         return [
-            'started_at' => 'timestamp',
-            'ended_at' => 'timestamp',
+            'started_at' => 'datetime',
+            'ended_at' => 'datetime',
         ];
     }
 

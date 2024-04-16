@@ -5,7 +5,7 @@ namespace App\Jobs;
 use App\Models\Game;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class StartGame
+class EndGame
 {
     use Dispatchable;
 
@@ -23,9 +23,7 @@ class StartGame
     public function handle(): void
     {
         $this->game->update([
-            'started_at' => now(),
-            'current_question_id' => $this->game->quiz->questions()->first()->id,
-            'ended_at' => null,
+            'ended_at' => now(),
         ]);
     }
 }

@@ -49,7 +49,11 @@ class Game extends Resource
 
             Text::make('Joining Code'),
 
+            DateTime::make('Started At'),
+
             DateTime::make('Ended At'),
+
+            BelongsTo::make('Current Question', 'currentQuestion', Question::class),
         ];
     }
 
@@ -90,6 +94,10 @@ class Game extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new Actions\StartGame,
+            new Actions\MoveGameToTheNextStep,
+            new Actions\EndGame,
+        ];
     }
 }
