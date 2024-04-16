@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\EvaluateAttempt;
 use App\Models\Attempt;
 use App\Models\Game;
 use Illuminate\Http\Request;
@@ -80,11 +81,22 @@ class GameController extends Controller
             [
                 'answer' => $input['answer'],
                 'is_correct' => false,
-                'health_spent' => 5,
+                'health_spent' => 10,
                 'time_spent' => $input['time_spent'],
             ],
         );
 
+        EvaluateAttempt::dispatch($attempt);
+
         return response()->noContent();
+    }
+
+    public function leaderboard(Request $request, Game $game)
+    {
+        $game->load('users');
+
+        return inertia('Game/Leaderboard', [
+            'game' => $game,
+        ]);
     }
 }

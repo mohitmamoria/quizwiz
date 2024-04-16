@@ -18,6 +18,7 @@ Route::put('/g/{game}/auth', [GameAuthController::class, 'complete'])->name('gam
 Route::post('/g/verify-code', [GameController::class, 'verifyCode'])->name('game.verify-code');
 Route::get('/g/{game}/joining-info', [GameController::class, 'joiningInfo'])->name('game.joining-ingo');
 Route::get('/g/{game:joining_code}/join', [GameController::class, 'join'])->name('game.join');
+Route::get('/g/{game}/leaderboard', [GameController::class, 'leaderboard'])->name('game.leaderboard');
 
 // Play
 Route::middleware(['auth'])->group(function () {

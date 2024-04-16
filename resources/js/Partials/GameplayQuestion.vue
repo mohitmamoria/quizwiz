@@ -51,7 +51,7 @@ const submit = () => {
         class="prose text-center"
         v-if="attempt && attempt.question_id === game.current_question.id"
     >
-        <p>Answer submitted. Please wait for the next question.</p>
+        <p>Please wait for the next question.</p>
     </div>
     <div v-else>
         <article class="prose mb-16 whitespace-pre-wrap">

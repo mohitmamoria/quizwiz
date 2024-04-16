@@ -36,7 +36,7 @@ class EvaluateAttempt implements ShouldQueue
         $this->attempt->update([
             'evaluated_at' => now(),
             'is_correct' => $isCorrect,
-            'health_spent' => $isCorrect ? $this->attempt->health_spent - 3 : $this->attempt->health_spent,
+            'health_spent' => $isCorrect ? $this->attempt->health_spent - 8 : $this->attempt->health_spent,
         ]);
     }
 
