@@ -29,10 +29,13 @@ onMounted(() => {
 
         <div class="flex items-start">
             <div class="w-8/12">
-                <h1 class="font-bold mb-16">Current Question</h1>
-                <article class="prose-2xl mb-16 whitespace-pre-wrap">
-                    {{ game.current_question.body }}
-                </article>
+                <div v-if="!game.ended_at && game.current_question">
+                    <h1 class="font-bold mb-16">Current Question</h1>
+                    <article class="prose-2xl mb-16 whitespace-pre-wrap">
+                        {{ game.current_question.body }}
+                    </article>
+                </div>
+                <div v-else>🎉 All done!</div>
             </div>
 
             <Leaderboard :game="game"></Leaderboard>
