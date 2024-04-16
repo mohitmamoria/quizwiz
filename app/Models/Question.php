@@ -21,6 +21,13 @@ class Question extends Model
         'answers',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'answers' => 'array',
+        ];
+    }
+
     public function quiz(): BelongsTo
     {
         return $this->belongsTo(Quiz::class);
