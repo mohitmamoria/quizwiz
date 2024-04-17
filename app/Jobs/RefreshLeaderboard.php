@@ -35,11 +35,13 @@ class RefreshLeaderboard implements ShouldQueue
     {
         DB::transaction(function () {
             $this->game->users()
-                ->withSum(['attempts as total_health_spent' => fn ($query) => $query->where('game_id', $this->game->id)], 'health_spent')
+                ->withSum(['attempts as total_score' => fn ($query) => $query->where('game_id', $this->game->id)], 'score')
+                // ->withSum(['attempts as total_health_spent' => fn ($query) => $query->where('game_id', $this->game->id)], 'health_spent')
                 ->withSum(['attempts as total_time_spent' => fn ($query) => $query->where('game_id', $this->game->id)], 'time_spent')
                 ->reorder()
+                ->orderBy('total_score', 'desc')
                 ->orderBy('total_time_spent')
-                ->orderBy('total_health_spent')
+                // ->orderBy('total_health_spent')
                 ->chunk(static::CHUNK_SIZE, function (Collection $users) {
                     $this->storeInLeaderboard($users);
                 });
@@ -55,6 +57,7 @@ class RefreshLeaderboard implements ShouldQueue
 
             return [
                 $user->id => [
+                    'score' => (int) $user->total_score,
                     'health' => $isEliminated ? 0 : 100 - (int) $user->total_health_spent,
                     'time_spent' => (int) $user->total_time_spent,
                     'rank' => $isEliminated ? null : ++$this->lastRank,

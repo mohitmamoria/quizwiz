@@ -24,11 +24,11 @@ const timeSpentForHumans = computed(() => {
         <div class="flex items-end">
             <img
                 class="w-6 h-6"
-                src="/images/icons/icon-health.svg"
+                src="/images/icons/icon-score.svg"
                 alt="Health"
             />
             <h4 class="text-[#058F66] font-extrabold">
-                {{ user.gamestate.health }}
+                {{ user.gamestate.score }}
             </h4>
         </div>
 

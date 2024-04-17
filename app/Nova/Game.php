@@ -62,6 +62,7 @@ class Game extends Resource
 
             BelongsToMany::make('Users')->fields(function ($request, $relatedModel) {
                 return [
+                    Number::make('Score'),
                     Number::make('Health'),
                     Number::make('Time Spent'),
                     Number::make('Rank')->sortable(),

@@ -59,6 +59,8 @@ class Attempt extends Resource
 
             Boolean::make('Correct?', 'is_correct'),
 
+            Number::make('Score'),
+
             Number::make('Health Spent'),
 
             Number::make('Time Spent'),

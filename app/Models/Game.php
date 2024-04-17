@@ -40,7 +40,7 @@ class Game extends Model
     {
         return $this->belongsToMany(User::class)
             ->withTimestamps()
-            ->withPivot('health', 'time_spent', 'rank')->as('gamestate')
+            ->withPivot('score', 'health', 'time_spent', 'rank')->as('gamestate')
             ->orderByPivot('rank', 'asc');
     }
 

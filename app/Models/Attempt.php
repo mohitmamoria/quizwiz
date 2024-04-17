@@ -12,11 +12,17 @@ class Attempt extends Model
 {
     use HasFactory, SoftDeletes;
 
-    const HEALTH_SPENT_ON_ATTEMPTING = 5;
+    const HEALTH_SPENT_ON_ATTEMPTING = 0;
 
-    const HEALTH_GAINED_ON_BEING_CORRECT = 3;
+    const HEALTH_GAINED_ON_BEING_CORRECT = 0;
 
-    const HEALTH_SPENT_ON_SKIPPING = 10;
+    const HEALTH_SPENT_ON_SKIPPING = 0;
+
+    const SCORE_ON_CORRECT = 10;
+
+    const SCORE_ON_INCORRECT = -5;
+
+    const SCORE_ON_SKIPPING = -5;
 
     protected $fillable = [
         'game_id',
@@ -25,6 +31,7 @@ class Attempt extends Model
         'answer',
         'evaluated_at',
         'is_correct',
+        'score',
         'health_spent',
         'time_spent',
     ];

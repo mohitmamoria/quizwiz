@@ -56,7 +56,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Game::class)
             ->withTimestamps()
-            ->withPivot('health', 'time_spent', 'rank')->as('gamestate')
+            ->withPivot('score', 'health', 'time_spent', 'rank')->as('gamestate')
             ->orderByPivot('created_at', 'desc');
     }
 
@@ -64,9 +64,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Attempt::class);
     }
-
-    // public function totalHealth(): HasMany
-    // {
-    //     return $this->hasMany(Attempt::class);
-    // }
 }
