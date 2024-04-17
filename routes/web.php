@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', function () {
-    auth()->logout();
+    if (auth()->user() && !auth()->user()->can('viewNova')) {
+        auth()->logout();
+    }
 
     return inertia('Home');
 })->name('home');
