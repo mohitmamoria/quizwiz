@@ -57,7 +57,7 @@ class Attempt extends Resource
 
             DateTime::make('Evaluated At'),
 
-            Boolean::make('Is Correct?'),
+            Boolean::make('Correct?', 'is_correct'),
 
             Number::make('Health Spent'),
 
