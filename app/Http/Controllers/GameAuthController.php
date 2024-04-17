@@ -59,7 +59,7 @@ class GameAuthController extends Controller
 
         $code->delete();
 
-        $user->games()->attach($game);
+        $user->games()->syncWithoutDetaching($game);
 
         auth()->login($user, true);
 
