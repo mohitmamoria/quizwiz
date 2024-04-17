@@ -37,6 +37,7 @@ class RefreshLeaderboard implements ShouldQueue
             $this->game->users()
                 ->withSum(['attempts as total_health_spent' => fn ($query) => $query->where('game_id', $this->game->id)], 'health_spent')
                 ->withSum(['attempts as total_time_spent' => fn ($query) => $query->where('game_id', $this->game->id)], 'time_spent')
+                ->reorder()
                 ->orderBy('total_time_spent')
                 ->orderBy('total_health_spent')
                 ->chunk(static::CHUNK_SIZE, function (Collection $links) {

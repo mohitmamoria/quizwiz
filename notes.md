@@ -82,3 +82,4 @@ time_spent
 [x] automatically redirect to play screen after successful auth
 [ ] clear the state after the form refreshes with new question
 [ ] testing scoring thoroughly
+[ ] cannot participate if health reaches 0
