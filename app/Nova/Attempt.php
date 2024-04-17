@@ -4,22 +4,21 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Game extends Resource
+class Attempt extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
-     * @var class-string<\App\Models\Game>
+     * @var class-string<\App\Models\Attempt>
      */
-    public static $model = \App\Models\Game::class;
+    public static $model = \App\Models\Attempt::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -35,7 +34,7 @@ class Game extends Resource
      */
     public static $search = [
         'id',
-        'joining_code',
+        'answer',
     ];
 
     /**
@@ -48,25 +47,21 @@ class Game extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Quiz'),
+            BelongsTo::make('Game'),
 
-            Text::make('Joining Code'),
+            BelongsTo::make('Question'),
 
-            DateTime::make('Started At'),
+            BelongsTo::make('User'),
 
-            DateTime::make('Ended At'),
+            Text::make('Answer'),
 
-            BelongsTo::make('Current Question', 'currentQuestion', Question::class)->nullable(),
+            DateTime::make('Evaluated At'),
 
-            BelongsToMany::make('Users')->fields(function ($request, $relatedModel) {
-                return [
-                    Number::make('Health'),
-                    Number::make('Time Spent'),
-                    Number::make('Rank')->sortable(),
-                ];
-            }),
+            Boolean::make('Is Correct?'),
 
-            HasMany::make('Attempts'),
+            Number::make('Health Spent'),
+
+            Number::make('Time Spent'),
         ];
     }
 
@@ -107,10 +102,6 @@ class Game extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [
-            new Actions\StartGame,
-            new Actions\MoveGameToTheNextStep,
-            new Actions\EndGame,
-        ];
+        return [];
     }
 }
