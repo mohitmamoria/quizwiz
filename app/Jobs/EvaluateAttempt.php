@@ -47,7 +47,7 @@ class EvaluateAttempt implements ShouldQueue
         $question = $this->attempt->question;
 
         foreach ($question->answers as $answer) {
-            if ($this->attempt->answer == $answer) {
+            if (strtolower($this->attempt->answer) == strtolower($answer)) {
                 return true;
             }
         }
