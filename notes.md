@@ -78,5 +78,5 @@ time_spent
 
 # todos
 
-[ ] method to start a quiz and set the current quiz question
-[ ] automatically redirect to play screen after successful auth
+[x] method to start a quiz and set the current quiz question
+[x] automatically redirect to play screen after successful auth
