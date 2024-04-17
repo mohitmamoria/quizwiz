@@ -77,6 +77,11 @@ class GameController extends Controller
         ]);
 
         $user = $game->users()->where('user_id', $request->user()->id)->latest()->first();
+
+        if ($user->gamestate->health < 1) {
+            return response()->noContent();
+        }
+
         $currentQuestion = $game->currentQuestion;
 
         $attempt = Attempt::updateOrCreate(

@@ -2,6 +2,7 @@
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import GameplayAfterEnd from "@/Partials/GameplayAfterEnd.vue";
 import GameplayBeforeStart from "@/Partials/GameplayBeforeStart.vue";
+import GameplayEliminated from "@/Partials/GameplayEliminated.vue";
 import GameplayQuestion from "@/Partials/GameplayQuestion.vue";
 import GameplayUserGamestate from "@/Partials/GameplayUserGamestate.vue";
 import { Head, router } from "@inertiajs/vue3";
@@ -48,8 +49,14 @@ onMounted(() => {
             :user="user"
         ></GameplayUserGamestate>
 
+        <GameplayEliminated
+            v-if="user.gamestate.health < 1"
+            :game="game"
+            :user="user"
+        ></GameplayEliminated>
+
         <GameplayBeforeStart
-            v-if="game.started_at === null"
+            v-else-if="game.started_at === null"
             :game="game"
             :user="user"
         ></GameplayBeforeStart>

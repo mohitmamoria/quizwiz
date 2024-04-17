@@ -82,5 +82,12 @@ time_spent
 [x] automatically redirect to play screen after successful auth
 [x] clear the state after the form refreshes with new question
 [x] testing scoring thoroughly
-[ ] cannot participate if health reaches 0
-[ ] track time on the backend
+[x] cannot participate if health reaches 0
+[x] track time on the backend
+
+# Testing to be done with many people
+
+-   skipping questions
+-   someone gets eliminated
+-   wrong answers
+-   correct answers

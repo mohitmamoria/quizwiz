@@ -40,8 +40,8 @@ class RefreshLeaderboard implements ShouldQueue
                 ->reorder()
                 ->orderBy('total_time_spent')
                 ->orderBy('total_health_spent')
-                ->chunk(static::CHUNK_SIZE, function (Collection $links) {
-                    $this->storeInLeaderboard($links);
+                ->chunk(static::CHUNK_SIZE, function (Collection $users) {
+                    $this->storeInLeaderboard($users);
                 });
         });
 
@@ -51,11 +51,13 @@ class RefreshLeaderboard implements ShouldQueue
     protected function storeInLeaderboard(Collection $users)
     {
         $users = $users->mapWithKeys(function ($user) {
+            $isEliminated = (int) $user->total_health_spent >= 100;
+
             return [
                 $user->id => [
-                    'health' => 100 - (int) $user->total_health_spent,
+                    'health' => $isEliminated ? 0 : 100 - (int) $user->total_health_spent,
                     'time_spent' => (int) $user->total_time_spent,
-                    'rank' => ++$this->lastRank,
+                    'rank' => $isEliminated ? null : ++$this->lastRank,
                 ],
             ];
         })->toArray();

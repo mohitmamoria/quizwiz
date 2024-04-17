@@ -58,6 +58,8 @@ class Game extends Resource
 
             BelongsTo::make('Current Question', 'currentQuestion', Question::class)->nullable(),
 
+            DateTime::make('Current Question Asked At')->nullable(),
+
             BelongsToMany::make('Users')->fields(function ($request, $relatedModel) {
                 return [
                     Number::make('Health'),
