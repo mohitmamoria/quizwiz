@@ -27,7 +27,7 @@ class GameAuthController extends Controller
             'email' => 'required|email',
         ]);
 
-        $user = User::firstOrCreate([
+        $user = User::updateOrCreate([
             'email' => $input['email'],
         ], [
             'name' => $input['name'],

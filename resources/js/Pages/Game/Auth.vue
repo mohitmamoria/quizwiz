@@ -39,9 +39,7 @@ const startAuth = () => {
 const completeAuth = () => {
     form.put(route("game-auth.complete", { game: props.game.id }), {
         onSuccess: () => {
-            //todo: bug fix. this redirect is not working.
-            console.log('success. redirecting.', route('game.play', {game: props.game_id}));
-            window.location = route('game.play', {game: props.game_id});
+            window.location = route("game.play", { game: props.game.id });
         },
     });
 };
