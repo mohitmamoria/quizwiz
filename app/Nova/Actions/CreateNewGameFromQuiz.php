@@ -19,7 +19,7 @@ class CreateNewGameFromQuiz extends Action
      *
      * @var string
      */
-    public $name = 'Create New Game';
+    public $name = '🚀 Create New Game';
 
     /**
      * Perform the action on the given models.

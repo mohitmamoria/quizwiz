@@ -80,6 +80,7 @@ time_spent
 
 [x] method to start a quiz and set the current quiz question
 [x] automatically redirect to play screen after successful auth
-[ ] clear the state after the form refreshes with new question
+[x] clear the state after the form refreshes with new question
 [x] testing scoring thoroughly
 [ ] cannot participate if health reaches 0
+[ ] track time on the backend

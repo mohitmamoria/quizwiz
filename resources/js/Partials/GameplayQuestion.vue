@@ -40,6 +40,7 @@ const submit = () => {
         time_spent: getCurrentTimestamp() - pageloadTimestamp.value,
     })).post(route("game.submit-answer", { game: props.game.id }), {
         onSuccess: () => {
+            form.reset();
             router.reload();
         },
     });
