@@ -1,7 +1,6 @@
 <script setup>
 import { useAPIForm } from "@/Composables/useAPIForm";
 import { router } from "@inertiajs/vue3";
-import { onMounted, ref } from "vue";
 
 const props = defineProps({
     game: {
@@ -22,23 +21,20 @@ const props = defineProps({
     },
 });
 
-const getCurrentTimestamp = () => Math.floor(new Date().getTime() / 1000);
+// const getCurrentTimestamp = () => Math.floor(new Date().getTime() / 1000);
 
-const pageloadTimestamp = ref(0);
+// const pageloadTimestamp = ref(0);
 
-onMounted(() => {
-    pageloadTimestamp.value = getCurrentTimestamp();
-});
+// onMounted(() => {
+//     pageloadTimestamp.value = getCurrentTimestamp();
+// });
 
 const form = useAPIForm({
     answer: "",
 });
 
 const submit = () => {
-    form.transform((data) => ({
-        ...data,
-        time_spent: getCurrentTimestamp() - pageloadTimestamp.value,
-    })).post(route("game.submit-answer", { game: props.game.id }), {
+    form.post(route("game.submit-answer", { game: props.game.id }), {
         onSuccess: () => {
             form.reset();
             router.reload();

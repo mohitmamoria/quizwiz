@@ -74,7 +74,6 @@ class GameController extends Controller
     {
         $input = $request->validate([
             'answer' => 'required|max:120',
-            'time_spent' => 'required|numeric',
         ]);
 
         $user = $game->users()->where('user_id', $request->user()->id)->latest()->first();
@@ -86,7 +85,7 @@ class GameController extends Controller
                 'answer' => $input['answer'],
                 'is_correct' => false,
                 'health_spent' => Attempt::HEALTH_SPENT_ON_ATTEMPTING,
-                'time_spent' => $input['time_spent'],
+                'time_spent' => (int) $game->current_question_asked_at->diffInSeconds(now()),
             ],
         );
 

@@ -23,6 +23,12 @@ class MoveGameToTheNextStep
      */
     public function handle(): void
     {
+        if (! $this->game->started_at) {
+            StartGame::dispatchSync($this->game);
+
+            return;
+        }
+
         FillSkippedAttempts::dispatchSync($this->game);
         RefreshLeaderboard::dispatchSync($this->game);
 
@@ -31,6 +37,7 @@ class MoveGameToTheNextStep
         if ($nextQuestion) {
             $this->game->update([
                 'current_question_id' => $nextQuestion->id,
+                'current_question_asked_at' => now(),
             ]);
         } else {
             EndGame::dispatchSync($this->game);

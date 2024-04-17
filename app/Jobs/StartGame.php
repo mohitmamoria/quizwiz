@@ -26,6 +26,7 @@ class StartGame
         $this->game->update([
             'started_at' => now(),
             'current_question_id' => $this->game->quiz->questions()->first()->id,
+            'current_question_asked_at' => now(),
             'ended_at' => null,
         ]);
 
