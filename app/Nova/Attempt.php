@@ -21,11 +21,25 @@ class Attempt extends Resource
     public static $model = \App\Models\Attempt::class;
 
     /**
+     * The per-page options used the resource index.
+     *
+     * @var array
+     */
+    public static $perPageOptions = [60, 150, 300];
+
+    /**
+     * The number of resources to show per page via relationships.
+     *
+     * @var int
+     */
+    public static $perPageViaRelationship = 60;
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'answer';
 
     /**
      * The columns that should be searched.
@@ -104,6 +118,8 @@ class Attempt extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new Actions\EvaluateAttempt,
+        ];
     }
 }

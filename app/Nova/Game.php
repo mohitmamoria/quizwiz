@@ -113,6 +113,7 @@ class Game extends Resource
         return [
             new Actions\StartGame,
             new Actions\MoveGameToTheNextStep,
+            new Actions\RefreshLeaderboard,
             new Actions\EndGame,
         ];
     }
