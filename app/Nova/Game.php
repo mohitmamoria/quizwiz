@@ -66,7 +66,7 @@ class Game extends Resource
                 return [
                     Number::make('Score'),
                     Number::make('Health'),
-                    Number::make('Time Spent'),
+                    Number::make('Time Spent')->sortable(),
                     Number::make('Rank')->sortable(),
                 ];
             }),
