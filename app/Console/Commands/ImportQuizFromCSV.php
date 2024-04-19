@@ -12,7 +12,7 @@ class ImportQuizFromCSV extends Command
      *
      * @var string
      */
-    protected $signature = 'app:import-questions-from-csv {file} {quizId}';
+    protected $signature = 'app:import-questions-from-csv {file} {quizId} {--append}';
 
     /**
      * The console command description.
@@ -29,6 +29,15 @@ class ImportQuizFromCSV extends Command
         $file = resource_path($this->argument('file'));
         $quiz = Quiz::find($this->argument('quizId'));
 
+        $this->info(sprintf('Using file: %s', $file));
+        $this->info(sprintf('Importing into quiz: %s', $quiz->name));
+
+        if (! $this->option('append')) {
+            $this->info('Deleting previous questions.');
+            $quiz->questions()->delete();
+            $this->comment('Deleted.');
+        }
+
         $questions = [];
         if (($handle = fopen($file, 'r')) !== false) {
             while (($row = fgetcsv($handle, 1000, ',')) !== false) {
@@ -38,7 +47,7 @@ class ImportQuizFromCSV extends Command
                 $answers = [];
                 for ($i = 2; $i < $num; $i++) {
                     if (strlen($row[$i]) > 0) {
-                        $answers[] = $row[$i];
+                        $answers[] = strtolower($row[$i]);
                     }
                 }
 
@@ -49,7 +58,7 @@ class ImportQuizFromCSV extends Command
 
         $quiz->questions()->createMany($questions);
 
-        $this->info(sprintf('Saved %d questions.', count($questions)));
+        $this->info(sprintf('Added %d questions.', count($questions)));
 
         return Command::SUCCESS;
     }
