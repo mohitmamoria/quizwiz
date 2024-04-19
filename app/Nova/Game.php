@@ -56,7 +56,9 @@ class Game extends Resource
 
             DateTime::make('Ended At'),
 
-            BelongsTo::make('Current Question', 'currentQuestion', Question::class)->nullable(),
+            BelongsTo::make('Current Question', 'currentQuestion', Question::class)->nullable()->displayUsing(function ($question) {
+                return sprintf('[%d] %s', $question->order, $question->body);
+            }),
 
             DateTime::make('Current Question Asked At')->nullable(),
 
