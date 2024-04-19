@@ -21,6 +21,13 @@ class Question extends Resource
     public static $model = \App\Models\Question::class;
 
     /**
+     * The number of resources to show per page via relationships.
+     *
+     * @var int
+     */
+    public static $perPageViaRelationship = 60;
+
+    /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
@@ -52,9 +59,13 @@ class Question extends Resource
 
             Number::make('Order'),
 
-            Text::make('Body')->onlyOnIndex(),
+            Text::make('Body')->onlyOnIndex()->displayUsing(function ($body) {
+                return nl2br($body);
+            })->asHtml(),
 
             Textarea::make('Body')->alwaysShow(),
+
+            Text::make('Answers')->onlyOnIndex(),
 
             Code::make('Answers')->json(),
         ];
