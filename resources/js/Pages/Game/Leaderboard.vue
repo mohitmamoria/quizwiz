@@ -24,44 +24,44 @@ onMounted(() => {
 <template>
     <Head title="Leaderboard" />
 
-    <div class="py-8 px-8 w-full flex flex-col h-dvh mx-auto">
+    <div class="py-8 px-8 w-full flex flex-col min-h-dvh mx-auto">
         <ApplicationLogo class="mx-auto mb-16"></ApplicationLogo>
 
         <div class="flex flex-1 items-start space-x-2">
             <div
                 class="w-8/12 h-full bg-white rounded p-4 border border-yellow-400"
             >
-                <div v-if="!game.started_at" class="text-center mt-16">
+                <div v-if="!game.started_at" class="text-center my-16">
                     ⏳ Waiting for the game to start. Sit tight!
                 </div>
-                <div
-                    v-else-if="
-                        !game.ended_at &&
-                        game.current_question &&
-                        !game.current_question_answered_at
-                    "
-                >
-                    <h1 class="font-bold mb-2">Question</h1>
+                <div v-else-if="!game.ended_at && game.current_question">
+                    <h1 class="font-bold mb-2 text-gray-400 uppercase text-xs">
+                        Question
+                    </h1>
                     <article
                         class="prose-img:max-w-sm mb-16 whitespace-pre-wrap"
                         v-html="game.current_question.body_html"
                     ></article>
+
+                    <article
+                        class="prose-img:max-w-sm mb-16 whitespace-pre-wrap"
+                        v-html="game.current_question.body_html"
+                    ></article>
+
+                    <div v-if="game.current_question_answered_at">
+                        <h1
+                            class="font-bold mb-2 text-gray-400 uppercase text-xs"
+                        >
+                            Answer
+                        </h1>
+                        <article class="whitespace-pre-wrap">
+                            <p class="text-2xl">
+                                {{ game.current_question.correct_answer }}
+                            </p>
+                        </article>
+                    </div>
                 </div>
-                <div
-                    v-else-if="
-                        !game.ended_at &&
-                        game.current_question &&
-                        game.current_question_answered_at
-                    "
-                >
-                    <h1 class="font-bold mb-2">Answer</h1>
-                    <article class="mb-16 whitespace-pre-wrap">
-                        <p class="text-3xl font-bold">
-                            {{ game.current_question.correct_answer }}
-                        </p>
-                    </article>
-                </div>
-                <div v-else class="text-center mt-16">
+                <div v-else class="text-center my-16">
                     😻 Thank you for playing with us today.
                 </div>
             </div>

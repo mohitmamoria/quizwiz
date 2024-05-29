@@ -47,6 +47,11 @@ class GameController extends Controller
 
         $game->load('currentQuestion');
 
+        // If the game is marked to show the correct answer, we will append that attribute
+        if ($game->current_question_answered_at) {
+            $game->currentQuestion->append('correct_answer');
+        }
+
         $attempt = null;
         $wasPreviousAttemptCorrect = false;
 
@@ -83,6 +88,11 @@ class GameController extends Controller
         }
 
         $currentQuestion = $game->currentQuestion;
+
+        $existing = $user->attempts()->forGame($game)->forQuestion($game->currentQuestion)->first();
+        if ($existing) {
+            return response()->noContent();
+        }
 
         $attempt = Attempt::updateOrCreate(
             ['game_id' => $game->id, 'question_id' => $currentQuestion->id, 'user_id' => $user->id],
