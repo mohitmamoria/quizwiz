@@ -43,11 +43,6 @@ onMounted(() => {
                         v-html="game.current_question.body_html"
                     ></article>
 
-                    <article
-                        class="prose-img:max-w-sm mb-16 whitespace-pre-wrap"
-                        v-html="game.current_question.body_html"
-                    ></article>
-
                     <div v-if="game.current_question_answered_at">
                         <h1
                             class="font-bold mb-2 text-gray-400 uppercase text-xs"
