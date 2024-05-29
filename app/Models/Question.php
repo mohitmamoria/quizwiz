@@ -55,4 +55,9 @@ class Question extends Model
     {
         return Attribute::make(get: fn () => Str::markdown($this->body));
     }
+
+    public function correctAnswer(): Attribute
+    {
+        return Attribute::make(get: fn () => Str::title($this->answers[0]));
+    }
 }

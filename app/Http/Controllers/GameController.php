@@ -25,7 +25,7 @@ class GameController extends Controller
 
         $game = Game::where('joining_code', $input['code'])->whereNull('ended_at')->first();
 
-        if (! $game) {
+        if (!$game) {
             return redirect()->back();
         }
 
@@ -34,7 +34,7 @@ class GameController extends Controller
 
     public function join(Request $request, Game $game)
     {
-        if (! auth()->check()) {
+        if (!auth()->check()) {
             return redirect()->route('game-auth.show', ['game' => $game]);
         }
 
@@ -102,6 +102,11 @@ class GameController extends Controller
     public function leaderboard(Request $request, Game $game)
     {
         $game->load('users', 'currentQuestion');
+
+        // If the game is marked to show the correct answer, we will append that attribute
+        if ($game->current_question_answered_at) {
+            $game->currentQuestion->append('correct_answer');
+        }
 
         return inertia('Game/Leaderboard', [
             'game' => $game,

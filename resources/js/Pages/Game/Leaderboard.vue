@@ -34,12 +34,32 @@ onMounted(() => {
                 <div v-if="!game.started_at" class="text-center mt-16">
                     ⏳ Waiting for the game to start. Sit tight!
                 </div>
-                <div v-else-if="!game.ended_at && game.current_question">
+                <div
+                    v-else-if="
+                        !game.ended_at &&
+                        game.current_question &&
+                        !game.current_question_answered_at
+                    "
+                >
                     <h1 class="font-bold mb-2">Question</h1>
                     <article
                         class="prose-img:max-w-sm mb-16 whitespace-pre-wrap"
                         v-html="game.current_question.body_html"
                     ></article>
+                </div>
+                <div
+                    v-else-if="
+                        !game.ended_at &&
+                        game.current_question &&
+                        game.current_question_answered_at
+                    "
+                >
+                    <h1 class="font-bold mb-2">Answer</h1>
+                    <article class="mb-16 whitespace-pre-wrap">
+                        <p class="text-3xl font-bold">
+                            {{ game.current_question.correct_answer }}
+                        </p>
+                    </article>
                 </div>
                 <div v-else class="text-center mt-16">
                     😻 Thank you for playing with us today.

@@ -18,6 +18,7 @@ class Game extends Model
         'joining_code',
         'current_question_id',
         'current_question_asked_at',
+        'current_question_answered_at',
         'started_at',
         'ended_at',
     ];
@@ -26,6 +27,7 @@ class Game extends Model
     {
         return [
             'current_question_asked_at' => 'datetime',
+            'current_question_answered_at' => 'datetime',
             'started_at' => 'datetime',
             'ended_at' => 'datetime',
         ];

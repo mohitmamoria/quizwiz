@@ -23,24 +23,40 @@ class MoveGameToTheNextStep
      */
     public function handle(): void
     {
-        if (! $this->game->started_at) {
+        /**
+         * Steps:
+         * 1. Start game (shows the first question)
+         * 2. Show answer to the previous question and stop accepting any more attempts
+         * 3. Show the next question
+         * 4. End game
+         */
+        if (!$this->game->started_at) {
             StartGame::dispatchSync($this->game);
 
             return;
         }
 
+        // Lock in attempts, and refresh the leaderboard. No more attempts can be submitted.
         FillSkippedAttempts::dispatchSync($this->game);
         RefreshLeaderboard::dispatchSync($this->game);
 
-        $nextQuestion = $this->game->currentQuestion->next();
-
-        if ($nextQuestion) {
+        // If showing the question, we'll reveal it's answer next.
+        if (is_null($this->game->current_question_answered_at)) {
             $this->game->update([
-                'current_question_id' => $nextQuestion->id,
-                'current_question_asked_at' => now(),
+                'current_question_answered_at' => now(),
             ]);
         } else {
-            EndGame::dispatchSync($this->game);
+            $nextQuestion = $this->game->currentQuestion->next();
+
+            if ($nextQuestion) {
+                $this->game->update([
+                    'current_question_id' => $nextQuestion->id,
+                    'current_question_asked_at' => now(),
+                    'current_question_answered_at' => null,
+                ]);
+            } else {
+                EndGame::dispatchSync($this->game);
+            }
         }
 
         GameMadeProgress::dispatch($this->game);
