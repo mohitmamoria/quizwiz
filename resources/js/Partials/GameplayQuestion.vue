@@ -44,7 +44,13 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="prose" v-if="game.current_question_answered_at">
+    <div
+        class="prose text-center"
+        v-if="attempt && attempt.question_id === game.current_question.id"
+    >
+        <p class="text-center">Wait for the answer to be revealed next.</p>
+    </div>
+    <div class="prose" v-else-if="game.current_question_answered_at">
         <div class="bg-white rounded p-4 border border-yellow-400">
             <h1 class="uppercase text-xs font-thin">Answer</h1>
             <p class="text-xl font-bold">
@@ -52,9 +58,7 @@ const submit = () => {
             </p>
         </div>
 
-        <p class="mt-16 text-gray-500 text-center">
-            ⏳ Please wait for the next question.
-        </p>
+        <p class="mt-16 text-center">⏳ Please wait for the next question.</p>
     </div>
 
     <div v-else>
