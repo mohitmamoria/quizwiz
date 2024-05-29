@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Question extends Resource
@@ -57,13 +59,13 @@ class Question extends Resource
 
             BelongsTo::make('Quiz'),
 
-            Number::make('Order'),
+            Number::make('Order')->required(),
 
             Text::make('Body')->onlyOnIndex()->displayUsing(function ($body) {
                 return nl2br($body);
             })->asHtml(),
 
-            Textarea::make('Body')->alwaysShow(),
+            Markdown::make('Body')->alwaysShow()->withFiles('public')->preset('commonmark'),
 
             Text::make('Answers')->onlyOnIndex(),
 

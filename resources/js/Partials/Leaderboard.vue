@@ -10,7 +10,7 @@ const props = defineProps({
 
 <template>
     <div>
-        <h1 class="text-center font-bold mb-16">Leaderboard</h1>
+        <h1 class="text-center font-bold mb-4">Leaderboard</h1>
         <div v-if="game.users.length === 0" class="prose text-center">
             <p>No players yet.</p>
         </div>

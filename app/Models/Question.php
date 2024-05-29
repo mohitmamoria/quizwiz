@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Question extends Model
 {
@@ -20,6 +22,10 @@ class Question extends Model
 
     protected $hidden = [
         'answers',
+    ];
+
+    protected $appends = [
+        'body_html',
     ];
 
     protected function casts(): array
@@ -43,5 +49,10 @@ class Question extends Model
     public function next(): ?Question
     {
         return $this->quiz->questions()->where('order', '>', $this->order)->first();
+    }
+
+    public function bodyHtml(): Attribute
+    {
+        return Attribute::make(get: fn () => Str::markdown($this->body));
     }
 }

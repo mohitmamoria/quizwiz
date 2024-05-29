@@ -24,21 +24,29 @@ onMounted(() => {
 <template>
     <Head title="Leaderboard" />
 
-    <div class="py-8 px-8 max-w-5xl mx-auto">
+    <div class="py-8 px-8 w-full flex flex-col h-dvh mx-auto">
         <ApplicationLogo class="mx-auto mb-16"></ApplicationLogo>
 
-        <div class="flex items-start">
-            <div class="w-8/12">
-                <div v-if="!game.ended_at && game.current_question">
-                    <h1 class="font-bold mb-16">Current Question</h1>
-                    <article class="prose-2xl mb-16 whitespace-pre-wrap">
-                        {{ game.current_question.body }}
-                    </article>
+        <div class="flex flex-1 items-start space-x-2">
+            <div
+                class="w-8/12 h-full bg-white rounded p-4 border border-yellow-400"
+            >
+                <div v-if="!game.started_at" class="text-center mt-16">
+                    ⏳ Waiting for the game to start. Sit tight!
                 </div>
-                <div v-else>🎉 All done!</div>
+                <div v-else-if="!game.ended_at && game.current_question">
+                    <h1 class="font-bold mb-2">Question</h1>
+                    <article
+                        class="prose-img:max-w-sm mb-16 whitespace-pre-wrap"
+                        v-html="game.current_question.body_html"
+                    ></article>
+                </div>
+                <div v-else class="text-center mt-16">
+                    😻 Thank you for playing with us today.
+                </div>
             </div>
 
-            <Leaderboard :game="game"></Leaderboard>
+            <Leaderboard class="w-4/12 p-4" :game="game"></Leaderboard>
         </div>
     </div>
 </template>

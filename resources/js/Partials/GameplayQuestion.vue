@@ -51,9 +51,10 @@ const submit = () => {
         <p>Please wait for the next question.</p>
     </div>
     <div v-else>
-        <article class="prose mb-16 whitespace-pre-wrap">
-            {{ game.current_question.body }}
-        </article>
+        <article
+            class="pros mb-16 whitespace-pre-wrap"
+            v-html="game.current_question.body_html"
+        ></article>
 
         <form class="space-y-2" @submit.prevent="submit">
             <div>
