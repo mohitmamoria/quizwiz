@@ -62,6 +62,8 @@ class Game extends Resource
 
             DateTime::make('Current Question Asked At')->nullable(),
 
+            DateTime::make('Current Question Answered At')->nullable(),
+
             BelongsToMany::make('Users')->fields(function ($request, $relatedModel) {
                 return [
                     Number::make('Score'),

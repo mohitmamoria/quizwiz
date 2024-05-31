@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\EvaluateAttempt;
+use App\Jobs\MoveGameToTheNextStep;
 use App\Models\Attempt;
 use App\Models\Game;
 use Illuminate\Http\Request;
@@ -121,5 +122,16 @@ class GameController extends Controller
         return inertia('Game/Leaderboard', [
             'game' => $game,
         ]);
+    }
+
+    public function next(Request $request, Game $game)
+    {
+        if ($request->user() && !$request->user()->can('viewNova')) {
+            auth()->logout();
+        }
+
+        MoveGameToTheNextStep::dispatchSync($game);
+
+        return redirect()->route('game.leaderboard', compact('game'));
     }
 }

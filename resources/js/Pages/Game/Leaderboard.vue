@@ -1,7 +1,8 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Leaderboard from "@/Partials/Leaderboard.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { Head, router, useForm } from "@inertiajs/vue3";
 import { onMounted } from "vue";
 
 const props = defineProps({
@@ -19,6 +20,12 @@ onMounted(() => {
         }
     );
 });
+
+const form = useForm({});
+
+const next = () => {
+    form.post(route("game.next", { game: props.game.id }));
+};
 </script>
 
 <template>
@@ -34,10 +41,14 @@ onMounted(() => {
                 <div v-if="!game.started_at" class="text-center my-16">
                     ⏳ Waiting for the game to start. Sit tight!
                 </div>
-                <div v-else-if="!game.ended_at && game.current_question">
+                <div
+                    class="overflow-hidden"
+                    v-else-if="!game.ended_at && game.current_question"
+                >
                     <h1 class="font-bold mb-2 text-gray-400 uppercase text-xs">
                         Question
                     </h1>
+
                     <article
                         class="prose-img:max-w-sm mb-16 whitespace-pre-wrap"
                         v-html="game.current_question.body_html"
@@ -61,6 +72,9 @@ onMounted(() => {
                 </div>
             </div>
 
+            <form @submit.prevent="next" class="">
+                <PrimaryButton type="submit">&rarr;</PrimaryButton>
+            </form>
             <Leaderboard class="w-4/12 p-4" :game="game"></Leaderboard>
         </div>
     </div>
