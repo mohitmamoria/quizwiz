@@ -31,7 +31,8 @@ const auth = () => {
 const startAuth = () => {
     form.post(route("game-auth.start", { game: props.game.id }), {
         onSuccess: () => {
-            stage.value = "completing";
+            window.location = route("game.play", { game: props.game.id });
+            // stage.value = "completing";
         },
     });
 };
@@ -75,7 +76,7 @@ const completeAuth = () => {
                 <label
                     for="email"
                     class="block text-sm font-medium leading-6 text-gray-900"
-                    >Confirm your email to play</label
+                    >What is your email to play</label
                 >
                 <div class="mt-1">
                     <input
@@ -90,7 +91,7 @@ const completeAuth = () => {
                     />
                 </div>
                 <HelpText>
-                    We will send a unique code to this email for verification.
+                    This will be used to communicate with you when you win.
                 </HelpText>
             </div>
 
