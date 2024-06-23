@@ -21,9 +21,9 @@ class Attempt extends Model
 
     const SCORE_ON_CORRECT = 10;
 
-    const SCORE_ON_INCORRECT = -5;
+    const SCORE_ON_INCORRECT = 0;
 
-    const SCORE_ON_SKIPPING = -5;
+    const SCORE_ON_SKIPPING = 0;
 
     const BONUS_TIME_LIMIT_IN_SECONDS = 30;
 
