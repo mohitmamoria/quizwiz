@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\ID;
@@ -46,6 +47,13 @@ class Question extends Resource
         'body',
         'answers',
     ];
+
+    public function title(): string
+    {
+        return Str::of(
+            sprintf('[%d] %s', $this->order, $this->body)
+        )->limit(50);
+    }
 
     /**
      * Get the fields displayed by the resource.
