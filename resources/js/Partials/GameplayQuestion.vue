@@ -39,7 +39,7 @@ const next = () => {
     nextStep.post(route("game.next", { game: props.game.id }));
 };
 
-const MAX_SECONDS_ALLOWED = 20;
+const MAX_SECONDS_ALLOWED = 30;
 
 let { secondsLeft, onCountdownEnd, resetCountdown } = useCountdown(
     props.game.current_question_asked_at,
