@@ -58,7 +58,7 @@ const next = () => {
                 </li>
                 <li class="mt-2">
                     4️⃣ You will have
-                    <span class="font-bold">20 seconds per question</span> to
+                    <span class="font-bold">30 seconds per question</span> to
                     answer.
                 </li>
             </ul>
