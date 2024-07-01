@@ -5,6 +5,7 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -51,6 +52,8 @@ class Game extends Resource
             BelongsTo::make('Quiz'),
 
             Text::make('Joining Code'),
+
+            Boolean::make('Is Solo?', 'is_solo'),
 
             DateTime::make('Started At'),
 

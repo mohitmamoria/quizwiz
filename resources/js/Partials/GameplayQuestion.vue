@@ -63,6 +63,7 @@ onCountdownEnd(() => {
 });
 
 router.on("success", (event) => {
+    form.reset();
     resetCountdown(props.game.current_question_asked_at, MAX_SECONDS_ALLOWED);
 });
 </script>

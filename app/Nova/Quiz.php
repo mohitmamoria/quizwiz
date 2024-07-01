@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -49,6 +50,8 @@ class Quiz extends Resource
             Text::make('Name'),
 
             Textarea::make('Description'),
+
+            Boolean::make('Can Be Played Solo?', 'can_be_played_solo'),
 
             HasMany::make('Games'),
 

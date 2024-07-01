@@ -14,6 +14,10 @@ class SoloGameController extends Controller
             auth()->logout();
         }
 
+        if (!$quiz->can_be_played_solo) {
+            return redirect()->route('home');
+        }
+
         return inertia('SoloGame/Auth', [
             'quiz' => $quiz,
         ]);
@@ -21,6 +25,10 @@ class SoloGameController extends Controller
 
     public function store(Request $request, Quiz $quiz)
     {
+        if (!$quiz->can_be_played_solo) {
+            return redirect()->route('home');
+        }
+
         $input = $request->validate([
             'name' => 'required',
             'email' => 'required|email',

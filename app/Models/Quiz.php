@@ -14,6 +14,11 @@ class Quiz extends Model
     protected $fillable = [
         'name',
         'description',
+        'can_be_played_solo',
+    ];
+
+    protected $casts = [
+        'can_be_played_solo' => 'boolean',
     ];
 
     public function questions(): HasMany
