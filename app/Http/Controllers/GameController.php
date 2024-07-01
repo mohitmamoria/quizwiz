@@ -103,11 +103,15 @@ class GameController extends Controller
         }
 
         $score = $user->gamestate->score;
+
         // Offer 10% discount regardless!
-        $discountedLink = config(sprintf('discounts.%d', $score > 0 ? $score : 10));
+        $discountCode = config(sprintf('discounts.%d', $score > 0 ? $score : 10));
+
+        $discountedLink = sprintf(config('discounts.link'), $discountCode);
 
         return [
             'percentage' => $score,
+            'discount_code' => $discountCode,
             'discounted_link' => $discountedLink,
             'reason' => match ($score) {
                 0 => '🙏 Hard luck! Here\'s a complimentary 10% discount if you want to try your luck at our next show.',

@@ -1,9 +1,10 @@
 <?php
 
 return [
-    '10' => env('DISCOUNT_LINK_10'),
-    '20' => env('DISCOUNT_LINK_20'),
-    '30' => env('DISCOUNT_LINK_30'),
-    '40' => env('DISCOUNT_LINK_40'),
-    '50' => env('DISCOUNT_LINK_50'),
+    'link' => env('DISCOUNT_LINK'),
+    '10' => env('DISCOUNT_CODE_10'),
+    '20' => env('DISCOUNT_CODE_20'),
+    '30' => env('DISCOUNT_CODE_30'),
+    '40' => env('DISCOUNT_CODE_40'),
+    '50' => env('DISCOUNT_CODE_50'),
 ];

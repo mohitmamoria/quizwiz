@@ -26,6 +26,23 @@ const next = () => {
         <ApplicationLogo class="mx-auto mb-4"></ApplicationLogo>
 
         <article class="prose-lg my-16">
+            <div class="rounded-md bg-blue-50 p-4 mt-8">
+                <div class="flex">
+                    <div class="flex-1 md:flex md:justify-between items-center">
+                        <p class="text-sm text-blue-700">
+                            🎉 Play this quiz to win HUGE DISCOUNTS to our next
+                            Online Quiz Show.
+                            <a
+                                class="underline font-bold"
+                                href="https://interrogami.com/products/quizwiz-online-july-edition"
+                                target="_blank"
+                                >Find details about the show here.</a
+                            >
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <ul>
                 <li>
                     1️⃣ There are <span class="font-bold">5 questions</span> in
