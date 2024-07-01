@@ -16,6 +16,7 @@ class Game extends Model
     protected $fillable = [
         'quiz_id',
         'joining_code',
+        'is_solo',
         'current_question_id',
         'current_question_asked_at',
         'current_question_answered_at',
@@ -26,6 +27,7 @@ class Game extends Model
     protected function casts(): array
     {
         return [
+            'is_solo' => 'boolean',
             'current_question_asked_at' => 'datetime',
             'current_question_answered_at' => 'datetime',
             'started_at' => 'datetime',

@@ -1,6 +1,7 @@
 <script setup>
-import { useAPIForm } from "@/Composables/useAPIForm";
-import { router } from "@inertiajs/vue3";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import { useCountdown } from "@/Composables/useCountdown";
+import { router, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     game: {
@@ -21,15 +22,7 @@ const props = defineProps({
     },
 });
 
-// const getCurrentTimestamp = () => Math.floor(new Date().getTime() / 1000);
-
-// const pageloadTimestamp = ref(0);
-
-// onMounted(() => {
-//     pageloadTimestamp.value = getCurrentTimestamp();
-// });
-
-const form = useAPIForm({
+const form = useForm({
     answer: "",
 });
 
@@ -37,10 +30,41 @@ const submit = () => {
     form.post(route("game.submit-answer", { game: props.game.id }), {
         onSuccess: () => {
             form.reset();
-            router.reload();
         },
     });
 };
+
+const nextStep = useForm({});
+const next = () => {
+    nextStep.post(route("game.next", { game: props.game.id }));
+};
+
+const MAX_SECONDS_ALLOWED = 20;
+
+let { secondsLeft, onCountdownEnd, resetCountdown } = useCountdown(
+    props.game.current_question_asked_at,
+    MAX_SECONDS_ALLOWED
+);
+
+onCountdownEnd(() => {
+    if (
+        // Solo game
+        props.game.is_solo &&
+        // Not on the answer screen
+        !props.game.current_question_answered_at &&
+        // Not on the waiting for the next question screen
+        !(
+            props.attempt &&
+            props.attempt.question_id === props.game.current_question.id
+        )
+    ) {
+        next();
+    }
+});
+
+router.on("success", (event) => {
+    resetCountdown(props.game.current_question_asked_at, MAX_SECONDS_ALLOWED);
+});
 </script>
 
 <template>
@@ -52,7 +76,12 @@ const submit = () => {
             </p>
         </div>
 
-        <p class="mt-16 text-center">⏳ Please wait for the next question.</p>
+        <div class="mt-16 text-center">
+            <p v-if="!game.is_solo">⏳ Please wait for the next question.</p>
+            <form v-else @submit.prevent="next" class="">
+                <PrimaryButton type="submit">Next &rarr;</PrimaryButton>
+            </form>
+        </div>
     </div>
     <div
         class="prose text-center"
@@ -91,9 +120,12 @@ const submit = () => {
                 <button
                     type="submit"
                     :disabled="form.processing"
-                    class="flex w-full justify-center rounded-md bg-yellow-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
+                    class="flex w-full justify-center rounded-md bg-yellow-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600 disabled:opacity-50"
                 >
                     Submit
+                    <span v-if="game.is_solo" v-cloak
+                        >({{ secondsLeft }}s)</span
+                    >
                 </button>
             </div>
         </form>

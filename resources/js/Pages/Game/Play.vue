@@ -25,15 +25,21 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    discountWon: {
+        type: Object,
+        default: null,
+    },
 });
 
 onMounted(() => {
-    window.Echo.private(`App.Models.Game.${props.game.id}`).listen(
-        "GameMadeProgress",
-        (e) => {
-            router.reload({ preserveState: false });
-        }
-    );
+    if (!props.game.is_solo) {
+        window.Echo.private(`App.Models.Game.${props.game.id}`).listen(
+            "GameMadeProgress",
+            (e) => {
+                router.reload({ preserveState: false });
+            }
+        );
+    }
 });
 </script>
 
@@ -65,6 +71,7 @@ onMounted(() => {
             v-else-if="game.ended_at !== null"
             :game="game"
             :user="user"
+            :discount-won="discountWon"
         ></GameplayAfterEnd>
 
         <GameplayQuestion

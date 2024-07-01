@@ -32,7 +32,7 @@ const timeSpentForHumans = computed(() => {
             </h4>
         </div>
 
-        <div class="flex items-end">
+        <div class="flex items-end" v-if="!game.is_solo">
             <img
                 class="w-6 h-6"
                 src="/images/icons/icon-timer.svg"
@@ -43,7 +43,7 @@ const timeSpentForHumans = computed(() => {
             </h4>
         </div>
 
-        <div class="flex items-end">
+        <div class="flex items-end" v-if="!game.is_solo">
             <img
                 class="w-6 h-6"
                 src="/images/icons/icon-leaderboard.svg"

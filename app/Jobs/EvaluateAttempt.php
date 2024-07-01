@@ -29,15 +29,21 @@ class EvaluateAttempt implements ShouldQueue
     {
         $isCorrect = $this->evaluateUsingGivenPossibilities();
 
-        if (!$isCorrect) {
+        // Using AI is NOT available in solo games
+        if (!$isCorrect && !$this->attempt->game->is_solo) {
             $isCorrect = $this->evaluateUsingAI();
         }
+
+        // Bonus is NOT available in solo games
+        $bonusScore = ($isCorrect && !$this->attempt->game->is_solo)
+            ? Attempt::BONUS_TIME_LIMIT_IN_SECONDS - $this->attempt->secondsSpent
+            : 0;
 
         $this->attempt->update([
             'evaluated_at' => now(),
             'is_correct' => $isCorrect,
             'score' => $isCorrect
-                ? Attempt::SCORE_ON_CORRECT + Attempt::BONUS_TIME_LIMIT_IN_SECONDS - $this->attempt->secondsSpent
+                ? Attempt::SCORE_ON_CORRECT + $bonusScore
                 : Attempt::SCORE_ON_INCORRECT,
             'health_spent' => $isCorrect
                 ? $this->attempt->health_spent - Attempt::HEALTH_GAINED_ON_BEING_CORRECT
