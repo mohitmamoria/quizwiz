@@ -55,6 +55,12 @@ class Game extends Resource
 
             Boolean::make('Is Solo?', 'is_solo'),
 
+            Number::make('Solo Score', function () {
+                return $this->is_solo
+                    ? $this->users()->first()->gamestate->score
+                    : '—';
+            }),
+
             DateTime::make('Started At'),
 
             DateTime::make('Ended At'),
