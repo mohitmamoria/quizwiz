@@ -133,14 +133,14 @@ class GameController extends Controller
         $user = $game->users()->where('user_id', $request->user()->id)->latest()->first();
 
         if ($user->gamestate->health < 1) {
-            return response()->noContent();
+            return back();
         }
 
         $currentQuestion = $game->currentQuestion;
 
         $existing = $user->attempts()->forGame($game)->forQuestion($game->currentQuestion)->first();
         if ($existing) {
-            return response()->noContent();
+            return back();
         }
 
         $attempt = Attempt::updateOrCreate(
@@ -155,14 +155,14 @@ class GameController extends Controller
 
         if (!$game->is_solo) {
             EvaluateAttempt::dispatch($attempt);
-            return response()->noContent();
+            return back();
         }
 
         // Solo game must have sync steps
         EvaluateAttempt::dispatchSync($attempt);
         MoveGameToTheNextStep::dispatchSync($game);
 
-        return redirect()->back();
+        return back();
     }
 
     public function leaderboard(Request $request, Game $game)
