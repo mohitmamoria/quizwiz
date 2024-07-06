@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -56,5 +58,33 @@ class Game extends Model
     public function attempts(): HasMany
     {
         return $this->hasMany(Attempt::class);
+    }
+
+    public function currentQuestionAggregatedAttempts(): Attribute
+    {
+        $this->loadCount([
+            'attempts as correct_attempts_count' => function (Builder $query) {
+                $query->where('question_id', $this->current_question_id)
+                    ->whereNotNull('evaluated_at')
+                    ->where('is_correct', true);
+            },
+            'attempts as wrong_attempts_count' => function (Builder $query) {
+                $query->where('question_id', $this->current_question_id)
+                    ->whereNotNull('evaluated_at')
+                    ->where('is_correct', false);
+            },
+            'attempts as pending_attempts_count' => function (Builder $query) {
+                $query->where('question_id', $this->current_question_id)
+                    ->whereNull('evaluated_at');
+            },
+        ]);
+
+        return new Attribute(get: function () {
+            return [
+                'correct' => $this->correct_attempts_count,
+                'wrong' => $this->wrong_attempts_count,
+                'pending' => $this->pending_attempts_count,
+            ];
+        });
     }
 }

@@ -167,15 +167,18 @@ class GameController extends Controller
 
     public function leaderboard(Request $request, Game $game)
     {
-        $game->load('users', 'currentQuestion');
-
-        // If the game is marked to show the correct answer, we will append that attribute
-        if ($game->current_question_answered_at) {
-            $game->currentQuestion->append('correct_answer');
-        }
-
         return inertia('Game/Leaderboard', [
-            'game' => $game,
+            'game' => function () use ($game) {
+                $game->load('users', 'currentQuestion');
+
+                // If the game is marked to show the correct answer, we will append that attribute
+                if ($game->current_question_answered_at) {
+                    $game->currentQuestion->append('correct_answer');
+                }
+
+                return $game;
+            },
+            'aggregated_attempts' => fn () => $game->current_question_aggregated_attempts
         ]);
     }
 

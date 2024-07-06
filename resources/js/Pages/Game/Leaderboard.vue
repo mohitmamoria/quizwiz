@@ -10,6 +10,14 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    aggregated_attempts: {
+        type: Object,
+        default: () => ({
+            correct: 0,
+            wrong: 0,
+            pending: 0,
+        }),
+    },
 });
 
 onMounted(() => {
@@ -19,6 +27,21 @@ onMounted(() => {
             router.reload({ preserveState: false });
         }
     );
+
+    let pollingInterval;
+    // router.on("finish", () => {
+    pollingInterval = setInterval(() => {
+        router.reload({
+            preserveScroll: true,
+            preserveState: true,
+            only: ["aggregated_attempts"],
+            // onBefore: () => {
+            //     console.log("clearing interval");
+            //     clearInterval(pollingInterval);
+            // },
+        });
+    }, 3000);
+    // });
 });
 
 const form = useForm({});
@@ -75,7 +98,22 @@ const next = () => {
             <form @submit.prevent="next" class="">
                 <PrimaryButton type="submit">&rarr;</PrimaryButton>
             </form>
-            <Leaderboard class="w-4/12 p-4" :game="game"></Leaderboard>
+            <div class="w-4/12 p-4">
+                <p class="text-center flex justify-center gap-x-2">
+                    <span class="font-medium text-emerald-600">{{
+                        aggregated_attempts.correct
+                    }}</span>
+                    <span>/</span>
+                    <span class="font-medium text-rose-600">{{
+                        aggregated_attempts.wrong
+                    }}</span>
+                    <span>/</span>
+                    <span class="font-medium text-amber-600">{{
+                        aggregated_attempts.pending
+                    }}</span>
+                </p>
+                <Leaderboard :game="game"></Leaderboard>
+            </div>
         </div>
     </div>
 </template>
