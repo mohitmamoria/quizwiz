@@ -92,7 +92,7 @@ class GameController extends Controller
             'user' => $user,
             'attempt' => $attempt,
             'wasPreviousAttemptCorrect' => $wasPreviousAttemptCorrect,
-            'discountWon' => $this->discountDetails($user, $game),
+            'discountWon' => $game->is_solo ? $this->discountDetails($user, $game) : null,
         ]);
     }
 
