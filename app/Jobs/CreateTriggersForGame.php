@@ -46,8 +46,7 @@ class CreateTriggersForGame implements ShouldQueue
 
     protected function timestampToSeconds($timestamp): int
     {
-        $ok = preg_match('/([0-9]{2}):([0-9]{2})/', $timestamp, $matches);
-
+        $ok = preg_match('/([0-9]{2}):([0-9]{2})(.*)/', $timestamp, $matches);
         if (!$ok) {
             throw new Exception(sprintf('timestamp (%s) not valid', $timestamp));
         }
