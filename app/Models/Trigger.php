@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TriggerType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Trigger extends Model
@@ -25,5 +26,10 @@ class Trigger extends Model
             'due_at' => 'datetime',
             'run_at' => 'datetime',
         ];
+    }
+
+    public function game(): BelongsTo
+    {
+        return $this->belongsTo(Game::class);
     }
 }

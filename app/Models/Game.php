@@ -60,6 +60,11 @@ class Game extends Model
         return $this->hasMany(Attempt::class);
     }
 
+    public function triggers(): HasMany
+    {
+        return $this->hasMany(Trigger::class)->orderby('due_at');
+    }
+
     public function currentQuestionAggregatedAttempts(): Attribute
     {
         $this->loadCount([

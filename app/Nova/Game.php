@@ -83,6 +83,8 @@ class Game extends Resource
             }),
 
             HasMany::make('Attempts'),
+
+            HasMany::make('Triggers'),
         ];
     }
 
@@ -128,6 +130,7 @@ class Game extends Resource
             new Actions\MoveGameToTheNextStep,
             new Actions\RefreshLeaderboard,
             new Actions\EndGame,
+            new Actions\CreateTriggersForGame,
         ];
     }
 }
