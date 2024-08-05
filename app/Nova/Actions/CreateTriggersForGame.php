@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Timezone;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class CreateTriggersForGame extends Action
@@ -31,10 +32,12 @@ class CreateTriggersForGame extends Action
     {
         $timestamps = explode(PHP_EOL, $fields->timestamps);
 
+        $startsAt = str($fields->starts_at)->beforeLast('.')->toString();
+
         foreach ($games as $game) {
             JobsCreateTriggersForGame::dispatchSync(
                 $game,
-                $fields->starts_at,
+                $startsAt,
                 $fields->timezone,
                 $timestamps,
             );
@@ -52,7 +55,7 @@ class CreateTriggersForGame extends Action
         return [
             DateTime::make('Starts At'),
 
-            Text::make('Timezone'),
+            Timezone::make('Timezone'),
 
             Textarea::make('Timestamps'),
         ];
